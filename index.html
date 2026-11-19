@@ -62,6 +62,30 @@ td input{min-width:90px;padding:4px 6px;font-size:14px}
 .chk{display:flex;gap:8px;align-items:center;font-size:14px;margin-top:10px}
 .chk input{width:20px;height:20px}
 .hide{display:none}
+a.btn{text-decoration:none}
+#tbl{direction:rtl;border-collapse:collapse;width:100%;background:#fff}
+#tbl th,#tbl td{border:1px solid #111;padding:6px 4px;text-align:center;direction:rtl;font-size:15px}
+#tbl th{background:#fce4d6;color:#000;font-weight:800;min-width:0;white-space:normal}
+#tbl td.nmc{font-weight:800;font-size:16px;min-width:0;white-space:nowrap;overflow:hidden;padding:6px 3px}
+#tbl td.nt{white-space:nowrap;overflow:hidden}
+#tbl td.v{background:#fff;font-weight:600;font-size:18px;color:#000}
+#tbl td.t{background:#fff;color:#2f75b5;font-weight:800;font-size:19px}
+#tbl td.nt{min-width:120px}
+#tbl .nw{display:flex;gap:6px;align-items:center;justify-content:center}
+#tbl .at{font-weight:800;white-space:nowrap;font-size:14px}
+#tbl td.nt input{border:0;background:transparent;text-align:center;font-weight:700;min-width:60px;padding:2px;font-size:14px}
+#tbl td.px,#tbl th.px{width:36px;border:0;background:transparent}
+#tbl td.px input{width:20px;height:20px}
+.tw{direction:rtl}
+#tbl{table-layout:fixed}
+#tbl th:nth-child(1){width:26px}#tbl th:nth-child(2){width:23%}#tbl th:nth-child(3),#tbl th:nth-child(4){width:13.5%}#tbl th:nth-child(5){width:26%}#tbl th:nth-child(6){width:21.5%}#tbl th:nth-child(7){width:34px}#tbl td.sqc{font-weight:400;font-size:11px;padding:6px 0;background:#fff;color:#3949ab}
+#tbl th{font-size:min(11px,1.95vw);padding:5px 0;white-space:nowrap;overflow:hidden}
+#tbl td.nmc{min-width:0;word-break:break-word}
+#tbl td.nt{min-width:0}
+#tbl .nw{flex-direction:row;flex-wrap:nowrap;gap:4px}
+#tbl .at{white-space:nowrap;font-size:12px}
+#tbl td.nt input{width:100%;min-width:20px;flex:1;height:22px;font-size:13px}
+#tbl tr.s td{background:#fce4d6;font-weight:800;font-size:16px;text-align:center;color:#000}
 #clr0{background:#e5484d;border-color:#c93a3f;color:#fff}
 td.n{font-weight:800;color:#08131d}
 td.v{font-weight:800;font-size:17px;color:#08131d}
@@ -115,7 +139,7 @@ td input[type=checkbox]{width:20px;height:20px;min-width:0;padding:0}
 <label class="chk"><input type="checkbox" id="hz" checked> إخفاء المواد التي لا تكمل ربطة</label>
 <input type="search" id="sq2" placeholder="بحث عن مادة" aria-label="بحث عن مادة">
 <div class="two"><button class="btn" id="sa">تحديد الكل للـ PDF</button><button class="btn" id="sn">إلغاء التحديد</button></div>
-<div class="tw"><table><thead><tr><th>ت</th><th>PDF</th><th>المادة</th><th class="big">الموصل</th><th class="big">عوينات</th><th class="big">الكلي</th><th>ملاحظة</th></tr></thead><tbody id="tb"></tbody></table></div>
+<div class="tw"><table id="tbl"><thead><tr><th class="sq">ت</th><th>المادة</th><th>جرد الموصل</th><th>جرد عوينات</th><th>الكلي = موصل + عوينات</th><th>الملاحظات + التاريخ</th><th class="px">PDF</th></tr></thead><tbody id="tb"></tbody></table></div>
 <div class="box">
 <h2>ملاحظات الجرد</h2>
 <textarea id="gn" placeholder="اكتب ملاحظاتك هنا، تظهر في آخر ملف PDF"></textarea>
@@ -123,6 +147,7 @@ td input[type=checkbox]{width:20px;height:20px;min-width:0;padding:0}
 <button class="btn pri pdfb" id="pdf1">تصدير PDF قسم المقاطع</button>
 <button class="btn pri pdfb" id="pdf2">تصدير PDF قسم الاكسسوارات</button>
 <div class="st" id="ps"></div>
+<div id="pl"></div>
 </div>
 </section>
 </main>
@@ -144,8 +169,7 @@ K.forEach(function(k){p("مقاطع كونل (أبيض)",k[0]+" كونل",k[1]);
 var BG="بوري وحاجب ومشطب";p(BG,"بوري مربع "+c,1);p(BG,"بوري دائري "+c,1);p(BG,"حاجب "+c,1);
 (c==="أبيض"?["18","10"]:c==="صاج"?["10","18"]:c==="أسود"?["18"]:[]).forEach(function(s){p(BG,"مشطب "+c+" "+s+" سم",1);});
 });
-["مانع ذباب أبيض","مانع ذباب صاج","كيلون غرفة","كيلون حمام","يدة غرفة أبيض","يدة حمام أبيض","يدة شباك أبيض","يدة غرفة صاج","يدة شباك صاج","وجه كيلون","نرمادة باب أبيض","نرمادة شباك أبيض","نرمادة باب صاج","نرمادة شباك صاج","جوزة","سليكون أبيض","سليكون صاج","سليكون بلوطي","برغي 25","برغي 38","برغي تركيب 10 ملم","برغي تركيب 12 ملم","برغي 15 ملم","برغي تركيب 8 ملم","سبانيول 28","سبانيول 60","سبانيول 80","سبانيول 100","بنز","لقمة","برغي 80 سريع كبير","برغي 70 سريع كبير","يدة غرفة بلوطي","يدة شباك بلوطي","نرمادة باب بلوطي","يدة حمام بلوطي","عصفورة أبيض","عصفورة صاج","عصفورة بلوطي","يدة حمام صاج","تول مانع ذباب","جوكر مانع ذباب أبيض","جوكر مانع ذباب صاج","حديد جنب","سفيفة","ربل مانع ذباب","بليت 1 ملم","برينة همرة 6 ملم","برينة مثلث","برينة نجمة"].forEach(function(n){p("اكسسوارات عامة",n,1,"اكسسوارات");});
-["لقمة جوكر","كيلون باب رئاسي","يدة باب رئاسي","جوزة باب رئاسي","نرمادة باب رئاسي","فوم","برغي 50 سريع كبير","همر كراون طوبة حديد","شفرة يدة انجيكو","مزرف كراون 6 ملم","مانع ذباب بلوطي","جوكر مانع ذباب بلوطي","برغي 80 سريع صغير","قفل مركزي","قماش كاوية","مسدس سليكون","تيقة كتر يلمز","عصفورة أسود","سليكون أسود","مانع ذباب أسود","جوكر مانع ذباب أسود","تول مانع ذباب 120 سم","كيلون غرفة door lock","كيلون حمام door lock","يدة حمام 2","كيلون حمام 2","جوزة كاسي","سبانيول 120 سم","بليت 0.7 ملم كريمي"].forEach(function(n){p("اكسسوارات عامة",n,1,"اكسسوارات");});
+["كيلون غرفة","كيلون حمام","يدة غرفة أبيض","يدة حمام أبيض","يدة شباك أبيض","يدة غرفة صاج","يدة شباك صاج","وجه كيلون","نرمادة باب أبيض","نرمادة شباك أبيض","نرمادة باب صاج","نرمادة شباك صاج","جوزة","سليكون أبيض","سليكون صاج","برغي 25","برغي 38","برغي تركيب 10 ملم","برغي تركيب 12 ملم","برغي 70 سريع كبير","برغي 80 سريع كبير","سبانيول 28","سبانيول 60","سبانيول 80","سبانيول 100","بنز","لقمة","لقمة جوكر","مانع ذباب أبيض","مانع ذباب صاج","مانع ذباب بلوطي","جوكر مانع ذباب أبيض","جوكر مانع ذباب صاج","جوكر مانع ذباب بلوطي","تول مانع ذباب","ربل مانع ذباب","سركي","برينة همر 6 ملم","برينة مثلث","برينة نجمة","يدة غرفة بلوطي","يدة حمام بلوطي","يدة شباك بلوطي","نرمادة باب بلوطي","سليكون بلوطي","عصفورة بلوطي","بليت 0.7 ملم كريمي","بليت 1 ملم","سفيفة","سركي 2","برغي 15 ملم","برغي تركيب 8 ملم","عصفورة أبيض","عصفورة صاج","يدة حمام صاج","حديد جنب","برينة همرة 6 ملم","كيلون باب رئاسي","يدة باب رئاسي","جوزة باب رئاسي","نرمادة باب رئاسي","فوم","برغي 50 سريع كبير","همر كراون طوبة حديد","شفرة يدة انجيكو","مزرف كراون 6 ملم","برغي 80 سريع صغير","قفل مركزي","قماش كاوية","مسدس سليكون","تيقة كتر يلمز","عصفورة أسود","سليكون أسود","مانع ذباب أسود","جوكر مانع ذباب أسود","تول مانع ذباب 120 سم","كيلون غرفة door lock","كيلون حمام door lock","يدة حمام 2","كيلون حمام 2","جوزة كاسي","سبانيول 120 سم"].forEach(function(n){p("اكسسوارات عامة",n,1,"اكسسوارات");});
 ["ستوب أحمر","نرمادة جي 60","عجلة / قمبورة","يدة سلايد أسود","زاوية 4560","كيس فوجي 250","فرشة / فتيلة سلايد","قبغ سلايد - باقة","جوكر مانع ذباب سلايد","يدة باب أسود طويل","زاوية إيطالي","قاعدة يدة بوري","كيلون باب إيطالي","كيلون مسح","لاستيك بصمة","لاستيك صوندة أحمر","لاستيك أحمر","نرمادة أسود كبير","لقمة إيطالي","جوزة حمام","تول 160 سم","فرشة عزل وسط","ربل مانع ذباب أسود","عجلة مانع ذباب"].forEach(function(n){p("اكسسوارات المنيوم",n,1,"اكسسوارات");});
 return a;}
 var S=null;
@@ -165,13 +189,14 @@ var SIZEMAP=[["مانع ذباب أبيض",20,"ربطة"],["مانع ذباب ص
 if(!S.v||S.v<2){SIZEMAP.forEach(function(m){var k=norm(m[0]);items.forEach(function(it){if(norm(it.n)===k){it.s=m[1];if(m[2])it.u=m[2];}});});S.v=2;try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){}}
 var RQ="";
 function ordered(){var o=[];SECS.forEach(function(s){items.forEach(function(it){if(it.sec===s)o.push(it);});});return o;}
-function save(){S.items=items;try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){}}
+function save(){S.items=items;try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){}svUpd();}
+function svUpd(){["m","a"].forEach(function(w){var e=$("sv"+w);if(!e)return;var c=items.filter(function(it){return String(it[w]||"")!=="";}).length;e.textContent=c?"محفوظ بالجهاز: "+c+" مادة":"لا توجد أرصدة محفوظة";});}
 function num(v){
 v=String(v==null?"":v).replace(/[٠-٩]/g,function(d){return "٠١٢٣٤٥٦٧٨٩".indexOf(d);}).replace(/[^0-9]/g,"");
 return v===""?0:parseInt(v,10);}
 function norm(s){
 return String(s||"").replace(/[٠-٩]/g,function(d){return "٠١٢٣٤٥٦٧٨٩".indexOf(d);}).replace(/[أإآ]/g,"ا").replace(/ة/g,"ه").replace(/ى/g,"ي").replace(/[\u064B-\u0652]/g,"").replace(/\s+/g,"").toLowerCase();}
-var TH={"كونل":{h:"#f6a85a",ht:"#4a2a00"},"صاج":{h:"#8b5a3c",ht:"#ffffff"},"اسود":{h:"#2f343b",ht:"#ffffff"},"بلوطي":{h:"#7f8790",ht:"#ffffff"}};
+var TH={"كونل":{h:"#f6a85a",ht:"#4a2a00"},"صاج":{h:"#8b5a3c",ht:"#ffffff"},"اسود":{h:"#2f343b",ht:"#ffffff"},"بلوطي":{h:"#a6a6a6",ht:"#000000"}};
 function theme(text,sec){
 if(sec&&sec!=="مقاطع")return null;
 var s=norm(text),ks=["كونل","صاج","اسود","بلوطي"];
@@ -197,11 +222,13 @@ document.querySelectorAll(".go").forEach(function(b){var w=b.getAttribute("data-
 }
 function loadScript(u){return new Promise(function(res,rej){var s=document.createElement("script");s.src=u;s.onload=res;s.onerror=rej;document.head.appendChild(s);});}
 var PDFV="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/";
+var PDFV2="https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/";
 async function ensurePdf(){
 if(window.pdfjsLib)return;
-await loadScript(PDFV+"pdf.min.js");
-try{await loadScript(PDFV+"pdf.worker.min.js");}catch(e){}
-pdfjsLib.GlobalWorkerOptions.workerSrc=PDFV+"pdf.worker.min.js";
+var base=PDFV;
+try{await loadScript(base+"pdf.min.js");}catch(e1){base=PDFV2;try{await loadScript(base+"pdf.min.js");}catch(e2){throw {bad:"تعذر تحميل مكتبة قراءة PDF (تأكد من الإنترنت، أو افتح الصفحة من كروم أو سفاري)"};}}
+try{await loadScript(base+"pdf.worker.min.js");}catch(e){}
+pdfjsLib.GlobalWorkerOptions.workerSrc=base+"pdf.worker.min.js";
 }
 async function loadImg(f){
 try{return await new Promise(function(res,rej){var u=URL.createObjectURL(f),i=new Image();i.onload=function(){URL.revokeObjectURL(u);res(i);};i.onerror=function(){URL.revokeObjectURL(u);rej();};i.src=u;});}
@@ -327,7 +354,7 @@ var kd=kind(f);
 if(kd==="sheet")local=local.concat(await sheetRows(f));
 else if(kd==="pdf"){var rr=await pdfLocal(f);if(rr)local=local.concat(rr);else bl=bl.concat(await fileBands(f));}
 else bl=bl.concat(await fileBands(f));
-}catch(e){bad.push(f.name+" ("+(e&&e.bad||"تعذر فتحه")+")");}}
+}catch(e){bad.push(f.name+" ("+(e&&e.bad||(e&&e.message?e.message:"تعذر فتحه"))+")");}}
 if(!local.length&&!bl.length)throw {code:"nofile"};
 var rows=local.slice();
 if(bl.length){
@@ -378,12 +405,13 @@ b.appendChild(mk("p",null,"اختر أي ملف فيه المقاطع والاك
 var l=mk("label","btn pick","اختيار صور أو PDF");
 var inp=document.createElement("input");inp.type="file";inp.accept="image/*,application/pdf,.pdf,.xlsx,.xls,.csv,.txt";inp.multiple=true;inp.style.cssText="position:absolute;inset:0;opacity:0;width:100%;height:100%;cursor:pointer";
 l.appendChild(inp);b.appendChild(l);
-var info=mk("div","st","لم يتم اختيار ملفات");info.id="in"+wh;b.appendChild(info);
+var info=mk("div","st","لم يتم اختيار ملفات");info.id="in"+wh;b.appendChild(info);var sv=mk("div","st");sv.id="sv"+wh;b.appendChild(sv);
 var go=mk("button","btn pri go","تحويل تلقائي إلى ربطات وكراتين");go.disabled=true;go.setAttribute("data-wh",wh);b.appendChild(go);
 var st=mk("div","st");st.id="st"+wh;b.appendChild(st);
-inp.addEventListener("change",function(){files[wh]=Array.prototype.slice.call(inp.files);info.textContent=files[wh].length?"تم اختيار "+files[wh].length+" ملف":"لم يتم اختيار ملفات";noSample();});
+function setF(a){files[wh]=a;info.textContent=files[wh].length?"تم اختيار "+files[wh].length+" ملف":"لم يتم اختيار ملفات";noSample();}
+inp.addEventListener("change",function(){setF(Array.prototype.slice.call(inp.files));});
 go.addEventListener("click",function(){readWh(wh);});
-U.appendChild(b);});}
+U.appendChild(b);});svUpd();}
 
 /* ---------- review tab ---------- */
 function upd(it){
@@ -427,30 +455,44 @@ if(it.sec!==lastS){out.push({s:it.sec});lastS=it.sec;last=null;cnt=0;}
 if(it.g&&it.g!==last){out.push({g:it.g,sec:it.sec});last=it.g;}
 out.push({it:it,n:++cnt,bm:c.bm,ba:c.ba,t:t});});
 return out;}
+function dtStr(){var d=new Date(),p=function(n){return(n<10?"0":"")+n;};return "\u202A"+d.getDate()+"/"+(d.getMonth()+1)+"/"+String(d.getFullYear()).slice(2)+" "+p(d.getHours())+":"+p(d.getMinutes())+"\u202C";}
+function nameBg(it){
+var s=norm(it.n);
+if(it.sec==="مقاطع"){var th=theme(it.n,"مقاطع");return th?{bg:th.h,fg:th.ht}:{bg:"#fce4d6",fg:"#000000"};}
+if(s.indexOf("بلوطي")>-1&&s.indexOf("ذباب")<0)return{bg:"#a6a6a6",fg:"#000000"};
+return{bg:"#fce4d6",fg:"#000000"};}
+function isBand(g){return g==="اكسسوارات المنيوم"||g==="مواد مضافة";}
 function show(){
 var tb=$("tb");tb.innerHTML="";
 var rs=rowsOut(null,false,$("sq2").value);
 if(!rs.length){var tr0=mk("tr"),td0=mk("td",null,"لا توجد مواد مكتملة الربطات بعد");td0.colSpan=7;tr0.appendChild(td0);tb.appendChild(tr0);}
+var first=true,dt=dtStr();
 rs.forEach(function(r){
 var tr=mk("tr");
-if(r.s){tr.className="s";var ts=mk("td",null,"قسم "+r.s);ts.colSpan=7;tr.appendChild(ts);tb.appendChild(tr);return;}
-if(r.g){var gt=theme(r.g,r.sec);tr.className="g";
-var tg=mk("td",null,r.g);tg.colSpan=3;tr.appendChild(tg);
-["الموصل","عوينات","الكلي"].forEach(function(l){tr.appendChild(mk("td","gl",l));});tr.appendChild(mk("td"));
-if(gt)Array.prototype.forEach.call(tr.children,function(td){td.style.background=gt.h;td.style.color=gt.ht;});
-tb.appendChild(tr);return;}
-var it=r.it;
-tr.appendChild(mk("td",null,r.n));
-var ck=mk("td"),cb=document.createElement("input");cb.type="checkbox";cb.checked=it.pdf!==false;cb.setAttribute("aria-label","إظهار "+it.n+" في PDF");
-cb.addEventListener("change",function(){it.pdf=cb.checked;save();});ck.appendChild(cb);tr.appendChild(ck);
-tr.appendChild(mk("td","n",it.n+(sz(it)>1?" ("+sz(it)+")":"")));
+if(r.s){first=true;tr.className="s";var ts=mk("td",null,"قسم "+r.s);ts.colSpan=6;tr.appendChild(ts);tb.appendChild(tr);return;}
+if(r.g){if(isBand(r.g)){tr.className="s";var tg=mk("td",null,r.g);tg.colSpan=6;tr.appendChild(tg);tb.appendChild(tr);}return;}
+var it=r.it,nb=nameBg(it);
+var n=mk("td","nmc"),fn=mk("span","fn",it.n);n.appendChild(fn);n.style.background=nb.bg;n.style.color=nb.fg;tr.appendChild(mk("td","sqc",r.n));tr.appendChild(n);
 tr.appendChild(mk("td","v",r.bm));tr.appendChild(mk("td","v",r.ba));tr.appendChild(mk("td","t",r.t));
-var nt=mk("td"),w=mk("div","nw"),inp=document.createElement("input");
-if(sz(it)===1)w.appendChild(mk("span","pc","قطعة"));
+var nt=mk("td","nt"),w=mk("div","nw"),inp=document.createElement("input");
+var auto=[first?dt:"",sz(it)===1?"قطعة":""].filter(Boolean).join(" ");first=false;
+if(auto)w.appendChild(mk("span","at",auto));
 inp.type="text";inp.value=it.note||"";inp.setAttribute("aria-label","ملاحظة "+it.n);
 inp.addEventListener("input",function(){it.note=inp.value;save();});
 w.appendChild(inp);nt.appendChild(w);tr.appendChild(nt);
-tb.appendChild(tr);});}
+var ck=mk("td","px"),cb=document.createElement("input");cb.type="checkbox";cb.checked=it.pdf!==false;cb.setAttribute("aria-label","إظهار "+it.n+" في PDF");
+cb.addEventListener("change",function(){it.pdf=cb.checked;save();});ck.appendChild(cb);tr.appendChild(ck);
+tb.appendChild(tr);});
+fit();}
+function fit(){
+["#tbl td.nmc .fn","#tbl .at"].forEach(function(sel){
+var els=document.querySelectorAll(sel);if(!els.length)return;
+var min=99;
+els.forEach(function(sp){var td=sp.closest("td");sp.style.display="inline-block";sp.style.whiteSpace="nowrap";
+var fs=parseFloat(getComputedStyle(sp).fontSize),av=td.clientWidth-8-(sp.classList.contains("at")?34:0);
+while(sp.offsetWidth>av&&fs>8){fs-=0.5;sp.style.fontSize=fs+"px";}
+if(fs<min)min=fs;});
+els.forEach(function(sp){sp.style.fontSize=min+"px";});});}
 $("sa").onclick=function(){items.forEach(function(it){it.pdf=true;});save();show();};
 $("sn").onclick=function(){items.forEach(function(it){it.pdf=false;});save();show();};
 
@@ -465,58 +507,61 @@ lines.push(cur);});
 return lines;}
 async function drawPages(only){
 try{await document.fonts.load("800 30px Cairo");await document.fonts.load("700 30px Cairo");await document.fonts.load("400 30px Cairo");}catch(e){}
-var rs=rowsOut(only,true),pages=[],cv,ctx,y,sec=only||"";
-var cols=[["ت",70],["المادة",380],["الموصل",130],["عوينات",130],["الكلي",130],["ملاحظة",280]];
-var edges=[],xr=PW-M;cols.forEach(function(c){edges.push([xr,xr-c[1]]);xr-=c[1];});
-var FF="Cairo, system-ui, sans-serif",HH=60;
+var rs=rowsOut(only,true),pages=[],cv,ctx,y,sec=only||"",first=true,dt=dtStr();
+var cols=[["ت",70],["المادة",310],["جرد الموصل",140],["جرد عوينات",140],["الكلي = موصل + عوينات",240],["الملاحظات + التاريخ",220]];
+var edges=[],x0=PW-M;cols.forEach(function(c){edges.push([x0-c[1],x0]);x0-=c[1];});
+var FF="Cairo, system-ui, sans-serif",HH=64,PEACH="#fce4d6",INK="#111111";
 function newPage(){
 cv=document.createElement("canvas");cv.width=PW;cv.height=PH;ctx=cv.getContext("2d");
 ctx.fillStyle="#fff";ctx.fillRect(0,0,PW,PH);ctx.direction="rtl";
 pages.push(cv);
-ctx.fillStyle="#1f3347";ctx.textAlign="center";ctx.font="800 48px "+FF;
-ctx.fillText("الجرد الكلي"+(sec?": قسم "+sec:""),PW/2,95);
-ctx.fillStyle="#6a7f92";ctx.font="400 28px "+FF;ctx.fillText("الموصل + عوينات · "+today(),PW/2,142);
-y=175;head();}
+ctx.fillStyle="#000";ctx.textAlign="center";ctx.font="800 44px "+FF;
+ctx.fillText("الجرد الكلي"+(sec?": قسم "+sec:""),PW/2,90);
+y=125;head();}
+function grid(yy,h){ctx.strokeStyle=INK;ctx.lineWidth=2;ctx.strokeRect(M,yy,PW-2*M,h);
+edges.forEach(function(e,i){if(i>0){ctx.beginPath();ctx.moveTo(e[1],yy);ctx.lineTo(e[1],yy+h);ctx.stroke();}});}
 function head(){
-ctx.fillStyle="#dcecf8";ctx.fillRect(M,y,PW-2*M,HH);
-ctx.fillStyle="#143a56";ctx.font="700 30px "+FF;
-cols.forEach(function(c,i){ctx.font=(i>=2&&i<=4?"800 34px ":"700 30px ")+FF;cell(c[0],i,y+41,true);});
-rect(y,HH);y+=HH;}
-function cell(t,i,yy,ctr){
-var e=edges[i],mid=i===0||(i>1&&i<5);ctx.textAlign=mid?"center":"right";
-var x=ctx.textAlign==="center"?(e[0]+e[1])/2:e[0]-12;
-var s=String(t),mw=e[0]-e[1]-18;
+ctx.fillStyle=PEACH;ctx.fillRect(M,y,PW-2*M,HH);
+ctx.fillStyle="#000";ctx.textAlign="center";
+cols.forEach(function(c,i){var e=edges[i],mw=e[1]-e[0]-14,hs=26;ctx.font="800 "+hs+"px "+FF;while(ctx.measureText(c[0]).width>mw&&hs>10){hs-=1;ctx.font="800 "+hs+"px "+FF;}
+ctx.fillText(c[0],(e[0]+e[1])/2,y+HH/2+hs*0.35);});
+grid(y,HH);y+=HH;}
+function cell(t,i,yy,wt,size){
+var e=edges[i],s=String(t),mw=e[1]-e[0]-14,sz2=size;
+ctx.textAlign="center";ctx.font=wt+" "+sz2+"px "+FF;
+while(ctx.measureText(s).width>mw&&sz2>12){sz2-=2;ctx.font=wt+" "+sz2+"px "+FF;}
 while(ctx.measureText(s).width>mw&&s.length>2)s=s.slice(0,-1);
-ctx.fillText(s,x,yy);}
-function rect(yy,h){ctx.strokeStyle="#c9d9e6";ctx.lineWidth=1.5;ctx.strokeRect(M,yy,PW-2*M,h);
-edges.forEach(function(e){ctx.beginPath();ctx.moveTo(e[1],yy);ctx.lineTo(e[1],yy+h);ctx.stroke();});}
+ctx.fillText(s,(e[0]+e[1])/2,yy);}
 if(!rs.length)newPage();
 rs.forEach(function(r){
-if(r.s){sec=r.s;newPage();return;}
+if(r.s){sec=r.s;newPage();first=true;return;}
+if(r.g){
+if(isBand(r.g)){
 if(y+RH>PH-90)newPage();
-if(r.g){var gt=theme(r.g,r.sec);
-ctx.fillStyle=gt?gt.h:"#e4f6ee";ctx.fillRect(M,y,PW-2*M,RH);
-ctx.fillStyle=gt?gt.ht:"#3b7aa3";ctx.font="800 30px "+FF;ctx.textAlign="right";ctx.fillText(r.g,PW-M-12,y+38);
-ctx.font="800 34px "+FF;["الموصل","عوينات","الكلي"].forEach(function(l,k){cell(l,k+2,y+39);});
-ctx.strokeStyle="#c9d9e6";ctx.strokeRect(M,y,PW-2*M,RH);y+=RH;return;}
-var it=r.it;
-ctx.fillStyle="#fff4c2";ctx.fillRect(edges[4][1],y,edges[4][0]-edges[4][1],RH);
-ctx.fillStyle="#08131d";ctx.font="800 32px "+FF;
-cell(r.n,0,y+38);cell(it.n,1,y+38);
-ctx.font="800 34px "+FF;cell(r.bm,2,y+38);cell(r.ba,3,y+38);
-ctx.font="800 37px "+FF;ctx.fillStyle="#1a237e";cell(r.t,4,y+38);
-ctx.font="400 26px "+FF;ctx.fillStyle="#1f3347";cell((sz(it)===1?"قطعة":"")+(sz(it)===1&&it.note?" - ":"")+(it.note||""),5,y+37);
-rect(y,RH);y+=RH;});
+ctx.fillStyle=PEACH;ctx.fillRect(M,y,PW-2*M,RH);
+ctx.fillStyle="#000";ctx.textAlign="center";ctx.font="800 30px "+FF;ctx.fillText(r.g,PW/2,y+38);
+ctx.strokeStyle=INK;ctx.lineWidth=2;ctx.strokeRect(M,y,PW-2*M,RH);y+=RH;}
+return;}
+if(y+RH>PH-90)newPage();
+var it=r.it,nb={bg:PEACH,fg:"#000000"};
+ctx.fillStyle=nb.bg;ctx.fillRect(edges[1][0],y,edges[1][1]-edges[1][0],RH);
+ctx.fillStyle="#3949ab";cell(r.n,0,y+39,"400",24);
+ctx.fillStyle=nb.fg;cell(it.n,1,y+38,"800",30);
+ctx.fillStyle="#000";cell(r.bm,2,y+39,"600",32);cell(r.ba,3,y+39,"600",32);
+ctx.fillStyle="#2f75b5";cell(r.t,4,y+40,"800",36);
+var auto=[first?dt:"",sz(it)===1?"قطعة":""].filter(Boolean).join(" "),note=(it.note||"").trim();
+ctx.fillStyle="#000";cell([auto,note].filter(Boolean).join(" - "),5,y+37,"700",26);
+first=false;grid(y,RH);y+=RH;});
 var note=(S.gn||"").trim();
-ctx.font="400 30px "+FF;ctx.textAlign="right";
+ctx.font="400 30px "+FF;
 var lines=note?wrap(ctx,note,PW-2*M-30):[],bh=Math.max(200,100+lines.length*46);
 if(y+bh+40>PH-60)newPage();
 y+=30;
-ctx.fillStyle="#fff4c2";ctx.fillRect(M,y,PW-2*M,bh);ctx.strokeStyle="#e0cf84";ctx.lineWidth=1.5;ctx.strokeRect(M,y,PW-2*M,bh);
-ctx.fillStyle="#6b5200";ctx.font="800 32px "+FF;ctx.textAlign="right";ctx.fillText("ملاحظات",PW-M-15,y+48);
-ctx.fillStyle="#1f3347";ctx.font="400 30px "+FF;
+ctx.fillStyle=PEACH;ctx.fillRect(M,y,PW-2*M,bh);ctx.strokeStyle=INK;ctx.lineWidth=2;ctx.strokeRect(M,y,PW-2*M,bh);
+ctx.fillStyle="#000";ctx.textAlign="right";ctx.font="800 32px "+FF;ctx.fillText("ملاحظات",PW-M-15,y+48);
+ctx.font="400 30px "+FF;
 lines.forEach(function(l,i){ctx.fillText(l,PW-M-15,y+96+i*46);});
-pages.forEach(function(c,i){var x=c.getContext("2d");x.direction="ltr";x.textAlign="center";x.fillStyle="#6a7f92";x.font="400 22px "+FF;x.fillText((i+1)+" / "+pages.length,PW/2,PH-30);});
+pages.forEach(function(c,i){var x=c.getContext("2d");x.direction="ltr";x.textAlign="center";x.fillStyle="#555";x.font="400 22px "+FF;x.fillText((i+1)+" / "+pages.length,PW/2,PH-30);});
 return pages;}
 async function makePdf(only){
 var pages=await drawPages(only),enc=new TextEncoder(),chunks=[],off=0,offs=[];
@@ -535,19 +580,33 @@ var N=3+3*n,xo=off,x="xref\n0 "+N+"\n0000000000 65535 f \n";
 for(var k=1;k<N;k++)x+=("0000000000"+offs[k]).slice(-10)+" 00000 n \n";
 put(x+"trailer\n<</Size "+N+"/Root 1 0 R>>\nstartxref\n"+xo+"\n%%EOF");
 return new Blob(chunks,{type:"application/pdf"});}
+var IOS=/iPad|iPhone|iPod/.test(navigator.userAgent)||(navigator.platform==="MacIntel"&&navigator.maxTouchPoints>1);
+var pend=null;
+function pdfFile(blob,fn){try{return new File([blob],fn,{type:"application/pdf"});}catch(e){return null;}}
+function canShareF(f){try{return !!(f&&navigator.share&&navigator.canShare&&navigator.canShare({files:[f]}));}catch(e){return false;}}
+function dlLink(blob,fn){var u=URL.createObjectURL(blob),a=document.createElement("a");a.href=u;a.download=fn;a.style.display="none";document.body.appendChild(a);a.click();setTimeout(function(){a.remove();URL.revokeObjectURL(u);},8000);}
 [["pdf0","","all"],["pdf1","مقاطع","muqatta"],["pdf2","اكسسوارات","accessories"]].forEach(function(b){
 $(b[0]).addEventListener("click",async function(){
-var ps=$("ps"),bs=document.querySelectorAll(".pdfb");
+var ps=$("ps"),bs=document.querySelectorAll(".pdfb"),fn="jard-"+b[2]+"-"+today().replace(/\//g,"-")+".pdf";
+if(pend&&pend.fn===fn&&Date.now()-pend.t<90000){var q=pend;pend=null;
+try{await navigator.share({files:[q.f],title:fn});ps.className="st ok";ps.textContent="تمت المشاركة.";}
+catch(e){if(e&&e.name==="AbortError"){ps.className="st";ps.textContent="أُلغيت المشاركة.";}else{try{dlLink(q.blob,fn);ps.className="st ok";ps.textContent="بدأ تنزيل الملف.";}catch(e2){ps.className="st err";ps.textContent="تعذر الحفظ على هذا الجهاز.";}}}
+return;}
 ps.className="st";ps.textContent="جاري تجهيز الملف…";bs.forEach(function(x){x.disabled=true;});
 try{
 if(!rowsOut(b[1],true).some(function(r){return r.it;})){ps.className="st err";ps.textContent="لا توجد مواد"+(b[1]?" في قسم "+b[1]:"")+" لتصديرها.";}
 else{
-var dl=window.claude&&claude.use?await claude.use("downloads"):null;
-var blob=await makePdf(b[1]),fn="jard-"+b[2]+"-"+today().replace(/\//g,"-")+".pdf";
-if(dl){await dl.save({filename:fn,data:blob});ps.className="st ok";ps.textContent="تم تجهيز الملف.";}
-else{var a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download=fn;document.body.appendChild(a);a.click();a.remove();ps.textContent="تم تجهيز الملف.";}
+var dl=null;try{dl=window.claude&&claude.use?await claude.use("downloads"):null;}catch(e){dl=null;}
+var blob=await makePdf(b[1]),done=false;
+if(dl){try{await dl.save({filename:fn,data:await blob.arrayBuffer()});done=true;ps.className="st ok";ps.textContent="تم إرسال الملف للجهاز. اختر «حفظ في الملفات» أو شاركه.";}
+catch(e){if(e&&e.code==="declined"){done=true;ps.className="st";ps.textContent="أُلغي الحفظ. اضغط التصدير مرة ثانية إذا تريد الحفظ.";}}}
+if(!done){var f=pdfFile(blob,fn);
+if(IOS&&canShareF(f)){
+try{await navigator.share({files:[f],title:fn});done=true;ps.className="st ok";ps.textContent="تمت المشاركة.";}
+catch(e){done=true;if(e&&e.name==="AbortError"){ps.className="st";ps.textContent="أُلغيت المشاركة.";}else{pend={f:f,blob:blob,fn:fn,t:Date.now()};ps.className="st ok";ps.textContent="الملف جاهز. اضغط تصدير PDF مرة ثانية للحفظ أو المشاركة.";}}}}
+if(!done){try{dlLink(blob,fn);ps.className="st ok";ps.textContent="بدأ تنزيل الملف. تلقاه بمجلد التنزيلات.";}catch(e){ps.className="st err";ps.textContent="تعذر الحفظ على هذا الجهاز.";}}
 }
-}catch(e){ps.className="st err";ps.textContent=e&&e.code==="declined"?"أُلغي الحفظ.":"تعذر إنشاء الملف"+(e&&e.message?": "+e.message:"")+".";}
+}catch(e){ps.className="st err";ps.textContent="تعذر إنشاء الملف"+(e&&e.message?": "+e.message:"")+".";}
 bs.forEach(function(x){x.disabled=false;});});});
 
 /* ---------- tabs and misc ---------- */
